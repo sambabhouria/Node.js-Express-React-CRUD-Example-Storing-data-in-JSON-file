@@ -1,7 +1,16 @@
 const express = require('express')
+const cors = require("cors");
 const fs = require('fs')
+const { v4: uuidv4 } = require('uuid');
 
-const app = express()
+const app = express();
+
+var corsOptions = {
+    origin: "http://localhost:4000"
+  };
+
+
+  app.use(cors(corsOptions))
 
 //this line is required to parse the request body
 app.use(express.json())
@@ -12,7 +21,7 @@ app.post('/user/add', (req, res) => {
     const existUsers = getUserData()
     //get the new user data from post request
     const userData = req.body
-
+    userData.id =  uuidv4();
     console.log(req.body)
 
     //check if the userData fields are missing
@@ -41,10 +50,19 @@ app.get('/user/list', (req, res) => {
     res.send(users)
 })
 
+app.get('/user/:id', (req, res) => {
+     //get the existing user data
+     const existUsers = getUserData();
+     //get the username from url
+    const id = req.params.id;
+    const selectedUer = existUsers.find( user => user.id === id )
+    res.send(selectedUer)
+})
+
 /* Update - Patch method */
-app.patch('/user/update/:username', (req, res) => {
+app.patch('/user/update/:id', (req, res) => {
     //get the username from url
-    const username = req.params.username
+    const id = req.params.id
 
     //get the update data
     const userData = req.body
@@ -53,13 +71,13 @@ app.patch('/user/update/:username', (req, res) => {
     const existUsers = getUserData()
 
     //check if the username exist or not
-    const findExist = existUsers.find( user => user.username === username )
+    const findExist = existUsers.find( user => user.id === id )
     if (!findExist) {
         return res.status(409).send({error: true, msg: 'username not exist'})
     }
 
     //filter the userdata
-    const updateUser = existUsers.filter( user => user.username !== username )
+    const updateUser = existUsers.filter( user => user.id !== id )
 
     //push the updated data
     updateUser.push(userData)
@@ -71,14 +89,14 @@ app.patch('/user/update/:username', (req, res) => {
 })
 
 /* Delete - Delete method */
-app.delete('/user/delete/:username', (req, res) => {
-    const username = req.params.username
+app.delete('/user/delete/:id', (req, res) => {
+    const id = req.params.id
 
     //get the existing userdata
     const existUsers = getUserData()
 
     //filter the userdata to remove it
-    const filterUser = existUsers.filter( user => user.username !== username )
+    const filterUser = existUsers.filter( user => user.id !== id )
 
     if ( existUsers.length === filterUser.length ) {
         return res.status(409).send({error: true, msg: 'username does not exist'})
@@ -114,5 +132,5 @@ const PORT = process.env.PORT || 8080;
 
 //configure the server port
 app.listen(PORT, () => {
-    console.log(` 🚀💪🐞🥂 🐼💳💎 🛳  🦁 🍰 🏅📕🌏💾 🔴 🔜  Server is running on port ${PORT}.`);
+    console.log(` 🚀💪🐞🥂 🐼💳💎 🛳  🦁 🍰 🏅📕🌏💾 🔴 🙌🏽🙏🏽🔥💯👍🏽🔔🔜  Server is running on port ${PORT}.`);
 });

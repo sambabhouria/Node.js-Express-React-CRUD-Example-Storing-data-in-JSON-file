@@ -25,4 +25,5 @@ You will also see any lint errors in the console.
 <img src="src/assets/images/11.png" width="300" height="300"/><img src="src/assets/images/12.png" width="300" height="300"/>
 <img src="src/assets/images/13.png" width="300" height="300"/><img src="src/assets/images/14.png" width="300" height="300"/>
 <img src="src/assets/images/15.png" width="300" height="300"/><img src="src/assets/images/16.png" width="300" height="300"/>
-<img src="src/assets/images/17.png" width="300" height="300"/><img src="src/assets/images/16.png" width="300" height="300"/>
+<img src="src/assets/images/17.png" width="300" height="300"/><img src="src/assets/images/18.png" width="300" height="300"/>
+<img src="src/assets/images/19.png" width="300" height="300"/><img src="src/assets/images/20.png" width="300" height="300"/>
